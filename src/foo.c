@@ -5,10 +5,10 @@ static jmp_buf ENV;
 
 extern void test_middle();
 
-void test_start() {
+void test_start(void(*f)()) {
   if (setjmp(ENV) != 0)
     return;
-  test_middle();
+  f();
   assert(0);
 }
 

@@ -1,11 +1,13 @@
 extern {
-    fn test_start();
+    fn test_start(f: extern fn());
     fn test_end();
+    fn CppTest();
 }
 
 fn main() {
     unsafe {
-        test_start();
+        CppTest();
+        test_start(test_middle);
     }
 }
 
@@ -17,8 +19,7 @@ impl Drop for A {
     }
 }
 
-#[no_mangle]
-pub extern fn test_middle() {
+extern fn test_middle() {
     let _a = A;
     foo();
 }
